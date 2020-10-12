@@ -1,3 +1,5 @@
+CONFIG & ADVCONFIG have been changed fro MonoPrice Select Mini v1, with the skr mini e3 v1.2 & mk8 extruder with a 12v heat core. 
+
 # BIGTREETECH SKR Mini E3 V1.x and V2.x
 
 BIGTREETECH SKR Mini E3 V1.x and V2.x mainboards are ultra-quiet, low-power, high-quality 3D printing machine controller boards from BIQU.
