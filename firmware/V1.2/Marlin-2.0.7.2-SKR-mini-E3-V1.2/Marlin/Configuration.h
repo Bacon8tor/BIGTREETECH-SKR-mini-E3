@@ -23,6 +23,8 @@
 
 #define CONFIG_EXAMPLES_DIR "Creality/Ender-3/BigTreeTech SKR Mini E3 1.2"
 
+#define MPSM
+
 /**
  * Configuration.h
  *
@@ -134,7 +136,9 @@
 
 // Name displayed in the LCD "Ready" message and Info menu
 #define CUSTOM_MACHINE_NAME "Ender-3"
-
+#ifdef ENABLED(MPSM) 
+  #define CUSTOM_MACHINE_NAME "MPSM"
+#endif
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
 //#define MACHINE_UUID "00000000-0000-0000-0000-000000000000"
@@ -657,6 +661,11 @@
 #define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
 
+#ifdef ENABLED(MPSM)
+  #define X_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+  #define Y_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+  #define Z_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+#endif
 /**
  * Stepper Drivers
  *
@@ -737,7 +746,9 @@
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 }
-
+#ifdef ENABLED(MPSM)
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 93, 93, 414, 100.8 }
+#endif
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
@@ -1097,6 +1108,9 @@
 #define INVERT_E6_DIR false
 #define INVERT_E7_DIR false
 
+#ifdef ENABLED(MPSM)
+  #define INVERT_E0_DIR false
+#endif
 // @section homing
 
 //#define NO_MOTION_BEFORE_HOMING // Inhibit movement until all axes have been homed
@@ -1120,6 +1134,10 @@
 #define X_BED_SIZE 235
 #define Y_BED_SIZE 235
 
+#ifdef ENABLED(MPSM)
+  #define X_BED_SIZE 120
+  #define Y_BED_SIZE 120
+#endif
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
@@ -1128,6 +1146,9 @@
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 250
 
+#ifdef ENABLED(MPSM)
+  #define Z_MAX_POS 100
+#endif
 /**
  * Software Endstops
  *
@@ -1230,9 +1251,12 @@
 //#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR
 //#define AUTO_BED_LEVELING_BILINEAR
-//#define AUTO_BED_LEVELING_UBL
-//#define MESH_BED_LEVELING
-
+#ifndef MPSM
+  #define AUTO_BED_LEVELING_UBL
+#endif
+#ifdef ENABLED(MPSM)
+  #define MESH_BED_LEVELING
+#endif
 /**
  * Normally G28 leaves leveling disabled on completion. Enable
  * this option to have G28 restore the prior leveling state.
@@ -1336,7 +1360,7 @@
  * Add a bed leveling sub-menu for ABL or MBL.
  * Include a guided procedure if manual probing is enabled.
  */
-//#define LCD_BED_LEVELING
+#define LCD_BED_LEVELING
 
 #if ENABLED(LCD_BED_LEVELING)
   #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis.
@@ -1345,7 +1369,7 @@
 #endif
 
 // Add a menu item to move between bed corners for manual bed adjustment
-//#define LEVEL_BED_CORNERS
+#define LEVEL_BED_CORNERS
 
 #if ENABLED(LEVEL_BED_CORNERS)
   #define LEVEL_CORNERS_INSET_LFRB { 30, 30, 30, 30 } // (mm) Left, Front, Right, Back insets
@@ -2066,8 +2090,9 @@
 // This is RAMPS-compatible using a single 10-pin connector.
 // (For CR-10 owners who want to replace the Melzi Creality board but retain the display)
 //
-#define CR10_STOCKDISPLAY
-
+#ifdef ENABLED(MPSM)
+  #define CR10_STOCKDISPLAY
+#endif
 //
 // Ender-2 OEM display, a variant of the MKS_MINI_12864
 //
