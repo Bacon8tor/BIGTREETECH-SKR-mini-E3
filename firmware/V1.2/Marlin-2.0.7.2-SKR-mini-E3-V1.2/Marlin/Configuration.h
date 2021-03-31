@@ -23,7 +23,7 @@
 
 #define CONFIG_EXAMPLES_DIR "Creality/Ender-3/BigTreeTech SKR Mini E3 1.2"
 
-//#define MPSM
+#define MPSM
 
 /**
  * Configuration.h
@@ -136,7 +136,7 @@
 
 // Name displayed in the LCD "Ready" message and Info menu
 #define CUSTOM_MACHINE_NAME "Ender-3"
-#ifdef ENABLED(MPSM) 
+#ifdef MPSM
   #define CUSTOM_MACHINE_NAME "MPSM"
 #endif
 // Printer's unique ID, used by some programs to differentiate between machines.
@@ -661,7 +661,7 @@
 #define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
 
-#ifdef ENABLED(MPSM)
+#ifdef MPSM
   #define X_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
   #define Y_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
   #define Z_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
@@ -745,8 +745,8 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 }
-#ifdef ENABLED(MPSM)
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 103.33 }
+#ifdef MPSM
   #define DEFAULT_AXIS_STEPS_PER_UNIT   { 93, 93, 414, 100.8 }
 #endif
 /**
@@ -1111,7 +1111,7 @@
 #define INVERT_E6_DIR false
 #define INVERT_E7_DIR false
 
-#ifdef ENABLED(MPSM)
+#ifdef MPSM
   #define INVERT_E0_DIR false
 #endif
 // @section homing
@@ -1137,7 +1137,7 @@
 #define X_BED_SIZE 235
 #define Y_BED_SIZE 235
 
-#ifdef ENABLED(MPSM)
+#ifdef MPSM
   #define X_BED_SIZE 120
   #define Y_BED_SIZE 120
 #endif
@@ -1149,7 +1149,7 @@
 #define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 250
 
-#ifdef ENABLED(MPSM)
+#ifdef MPSM
   #define Z_MAX_POS 100
 #endif
 /**
@@ -2094,9 +2094,9 @@
 // This is RAMPS-compatible using a single 10-pin connector.
 // (For CR-10 owners who want to replace the Melzi Creality board but retain the display)
 //
-#ifdef ENABLED(MPSM)
-  #define CR10_STOCKDISPLAY
-#endif
+
+ #define CR10_STOCKDISPLAY
+
 //
 // Ender-2 OEM display, a variant of the MKS_MINI_12864
 //
@@ -2378,16 +2378,16 @@
 #endif
 
 // Support for Adafruit NeoPixel LED driver
-//#define NEOPIXEL_LED
+#define NEOPIXEL_LED
 #if ENABLED(NEOPIXEL_LED)
   #define NEOPIXEL_TYPE   NEO_GRB // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
-  // #define NEOPIXEL_PIN     4       // LED driving pin
+   #define NEOPIXEL_PIN     SERVO0_PIN      // LED driving pin
   //#define NEOPIXEL2_TYPE NEOPIXEL_TYPE
   //#define NEOPIXEL2_PIN    5
-  #define NEOPIXEL_PIXELS 30       // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled.)
+  #define NEOPIXEL_PIXELS 8       // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled
   #define NEOPIXEL_IS_SEQUENTIAL   // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
   #define NEOPIXEL_BRIGHTNESS 127  // Initial brightness (0-255)
-  //#define NEOPIXEL_STARTUP_TEST  // Cycle through colors at startup
+  #define NEOPIXEL_STARTUP_TEST  // Cycle through colors at startup
 
   // Support for second Adafruit NeoPixel LED driver controlled with M150 S1 ...
   //#define NEOPIXEL2_SEPARATE
